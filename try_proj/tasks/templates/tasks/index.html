@@ -1,0 +1,52 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+<body>
+  <h1>
+      Hello bro, it's main tasks page. adress: /tasks/
+  </h1>
+
+
+  <div class="container">
+    <h1>
+      {{ message }}
+    </h1>
+
+    {% if request.user.is_superuser %}
+      <span class="badge bg-secondary">Пользователь админ</span>
+      <a href="/admin/" class="btn btn-sm btn-primary" target="_blank">Перейти в админку</a>
+    {% else %}
+      <span class="badge bg-warning">Пожалуйста 
+        <a href="/admin/" target="_blank">авторизирйтесь</a>
+      </span>
+    {% endif %}
+  </div>
+
+
+  <div class="container">
+    {% for profile in profiles %}
+    <div class="alert bg-light mb-4">
+      <p class="mb-0">Название профиля: {{ profile.title }}</p>
+      {% if profile.tasks.all %}
+      <div class="mt-2">
+        {% for task in profile.tasks.all %}
+        <div class="alert bg-secondary text-white d-flex justify-content-between mb-2 py-2 px-3">
+          <div>
+            {{ task.title }} 
+          </div>
+          <div>
+            <a class="btn btn-sm btn-outline-warning" href="{% url 'task-update' task.pk %}">Редактировать</a>
+            <a class="btn btn-sm btn-outline-danger" href="{% url 'task-delete' task.pk %}">Удалить</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>У этого профиля нет заданий</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+</body>
+{% endblock content %}
