@@ -1,0 +1,45 @@
+{% extends "tasks/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-5" style="background-color: green">
+        <div class="card-header">
+            <h2>Просмотр задания: <strong>{{ task.title }}</strong></h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                        <strong>Профиль:</strong> {{ task.profile }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                        <strong>Название:</strong> {{ task.title }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                        <strong>Описание:</strong> {{ task.description }}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                        <strong>Статус:</strong> {{ task.status }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function highlight(element) {
+        element.classList.add("bg-info");
+    }
+
+    function removeHighlight(element) {
+        element.classList.remove("bg-info");
+    }
+</script>
+{% endblock %}

@@ -26,7 +26,16 @@
   <div class="container">
     {% for profile in profiles %}
     <div class="alert bg-light mb-4">
-      <p class="mb-0">Название профиля: {{ profile.title }}</p>
+
+      <div class="row">
+        <div class="col-md-10">
+          <p class="mb-0">Название профиля: {{ profile.title }}</p>
+        </div> 
+        <div class="col-md-2 text-right">
+          <a class="btn btn-sm btn-info" href="{% url 'task-create' profile_pk=profile.pk %}">Создание задачи</a>
+        </div>
+      </div>
+
       {% if profile.tasks.all %}
       <div class="mt-2">
         {% for task in profile.tasks.all %}
@@ -35,6 +44,7 @@
             {{ task.title }} 
           </div>
           <div>
+            <a class="btn btn-sm btn-outline-warning" href="{% url 'task-read' task.pk %}">Просмотр</a>
             <a class="btn btn-sm btn-outline-warning" href="{% url 'task-update' task.pk %}">Редактировать</a>
             <a class="btn btn-sm btn-outline-danger" href="{% url 'task-delete' task.pk %}">Удалить</a>
           </div>

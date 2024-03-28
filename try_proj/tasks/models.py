@@ -23,8 +23,6 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, related_name='tasks', on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=status_varient, default='Новая',)
-    
-    #указатель на пользователя, которому назвачена задача
 
     def __str__(self):
         return f"Task title: { self.title }"
