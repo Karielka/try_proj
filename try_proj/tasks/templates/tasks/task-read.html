@@ -2,29 +2,29 @@
 
 {% block content %}
 <div class="container">
-    <div class="card mt-5" style="background-color: green">
+    <div class="card mt-5" style="background-color: rgb(128, 0, 128)">
         <div class="card-header">
-            <h2>Просмотр задания: <strong>{{ task.title }}</strong></h2>
+            <h2 style="color:aqua">Просмотр задания: <strong>{{ task.title }}</strong></h2>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                    <div class="bg-secondary text-black-50 p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
                         <strong>Профиль:</strong> {{ task.profile }}
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                    <div class="bg-secondary text-black-50 p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
                         <strong>Название:</strong> {{ task.title }}
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                    <div class="bg-secondary text-black-50 p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
                         <strong>Описание:</strong> {{ task.description }}
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="bg-secondary text-black p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
+                    <div class="bg-secondary text-black-50 p-3 mb-3" onmouseover="highlight(this)" onmouseout="removeHighlight(this)">
                         <strong>Статус:</strong> {{ task.status }}
                     </div>
                 </div>
@@ -35,11 +35,11 @@
 
 <script>
     function highlight(element) {
-        element.classList.add("bg-info");
+        element.classList.add("bg-warning");
     }
 
     function removeHighlight(element) {
-        element.classList.remove("bg-info");
+        element.classList.remove("bg-warning");
     }
 </script>
 {% endblock %}

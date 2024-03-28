@@ -2,11 +2,6 @@
 
 {% block content %}
 <body>
-  <h1>
-      Hello bro, it's main tasks page. adress: /tasks/
-  </h1>
-
-
   <div class="container">
     <h1>
       {{ message }}
@@ -16,7 +11,7 @@
       <span class="badge bg-secondary">Пользователь админ</span>
       <a href="/admin/" class="btn btn-sm btn-primary" target="_blank">Перейти в админку</a>
     {% else %}
-      <span class="badge bg-warning">Пожалуйста 
+      <span class="badge bg-warning">Пожалуйста, 
         <a href="/admin/" target="_blank">авторизирйтесь</a>
       </span>
     {% endif %}
