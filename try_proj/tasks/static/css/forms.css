@@ -1,4 +1,8 @@
 /* Стили для контейнера формы */
+body {
+    background-color: rgba(225, 174, 45, 0.994);
+}
+
 .container {
     max-width: 500px;
     margin: 0 auto;
