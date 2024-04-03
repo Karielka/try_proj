@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class BugsConfig(AppConfig):
+class QualityControlConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Bugs'
+    name = 'quality_control'
