@@ -22,4 +22,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tasks/', include('tasks.urls')),
+    path('control/', include('quality_control.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
