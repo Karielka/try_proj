@@ -1,2 +1,40 @@
-<!DOCTYPE html>
-<h1>Hello bugs</h1>
+{% extends "quality_control/base.html" %}
+
+{% block content %}
+<body>
+  <div class="container">
+    <h1>
+      {{ message }}
+    </h1>
+
+    {% if request.user.is_superuser %}
+      <span class="badge bg-secondary">Пользователь админ</span>
+      <a href="/admin/" class="btn btn-sm btn-primary" target="_blank">Перейти в админку</a>
+    {% else %}
+      <span class="badge bg-warning">Пожалуйста, 
+        <a href="/admin/" target="_blank">авторизирйтесь</a>
+      </span>
+    {% endif %}
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+        {% if bugs %}
+        <div class="container">
+            <a class="btn btn-sm btn-outline-warning" href="{% url 'bugs-read' %}">Просмотр всех багов</a>
+        </div>
+        {% else %}
+        <div class="container">
+            <p>Баг репортов создано не было! Идите ищите баги, они есть везде!</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="col-6">
+    </div>
+
+  </div>
+
+
+</body>
+{% endblock content %}
