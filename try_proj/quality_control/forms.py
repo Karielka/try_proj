@@ -1,17 +1,12 @@
 from django import forms
-from tasks.models import Task, Profile
+from quality_control.models import BugReport, FeatureReport
 
-class TaskForm(forms.ModelForm):
+class BugReportFormForCreate(forms.ModelForm):
     class Meta:
-        model = Task
-        fields = '__all__'
+        model = BugReport
+        fields = ['title','description', 'profile', 'task', 'priority']
 
-class TaskForm_1(forms.ModelForm):
+class FeatureReportFormForCreate(forms.ModelForm):
     class Meta:
-        model = Task
-        fields = ['title', 'description', 'status']
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = '__all__'
+        model = FeatureReport
+        fields = ['title','description', 'profile', 'task', 'priority']

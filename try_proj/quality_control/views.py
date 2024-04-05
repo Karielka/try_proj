@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from quality_control.models import BugReport, FeatureReport
 
 from django.http import HttpResponse
-from tasks.forms import TaskForm, TaskForm_1
+from quality_control.forms import BugReportFormForCreate, FeatureReportFormForCreate
 
 def index(request):
     bugs = BugReport.objects.all()
@@ -30,9 +30,71 @@ def bug_detail(request, bug_pk):
     context = {
         'title': 'Bug page',
         'message': 'Вы находитесь на страницами с конкретным багом',
-        'bugs': bug,
+        'bug': bug,
     }
-    return render(request, 'quality_control/bugs-read/bug-read.html', context)
+    return render(request, 'quality_control/bug-read.html', context)
+
+
+def bug_create(request):
+    if request.method == 'POST':
+        form = BugReportFormForCreate(request.POST)
+        if form.is_valid():
+            bug = form.save(commit=False)
+            bug.save()
+            return redirect('index')  # Перенаправляем на главную страницу после создания
+    else:
+        form = BugReportFormForCreate()
+    context = {
+        'title': 'Feature page create',
+        'message': 'Вы находитесь на страницами с созданием конкретного бага',
+        'form': form,
+    }
+    return render(request, 'quality_control/bug-create.html', context)
+
+
+
+
+
+
+
+
+
+
+
+def features_read(request):
+    features = FeatureReport.objects.all()
+    context = {
+        'title': 'Features page',
+        'message': 'Вы находитесь на страницами со списком фич',
+        'features': features,
+    }
+    return render(request, 'quality_control/features-read.html', context)
+
+def feature_detail(request, feature_pk):
+    feature = get_object_or_404(FeatureReport, pk=feature_pk)
+    context = {
+        'title': 'Feature page',
+        'message': 'Вы находитесь на страницами с конкретной фичей',
+        'feature': feature,
+    }
+    return render(request, 'quality_control/feature-read.html', context)
+
+def feature_create(request):
+    if request.method == 'POST':
+        form = FeatureReportFormForCreate(request.POST)
+        if form.is_valid():
+            feature = form.save(commit=False)
+            feature.save()
+            return redirect('index')  # Перенаправляем на главную страницу после создания
+    else:
+        form = FeatureReportFormForCreate()
+    context = {
+        'title': 'Feature page create',
+        'message': 'Вы находитесь на страницами с созданием конкретного бага',
+        'form': form,
+    }
+    return render(request, 'quality_control/feature-create.html', context)
+
 
 # def task_create(request, profile_pk):
 #     profile = get_object_or_404(Profile, pk=profile_pk)

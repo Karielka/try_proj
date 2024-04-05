@@ -5,7 +5,13 @@ import quality_control.views as control
 urlpatterns = [
     path('', control.index, name='index'),
     path('bugs/', control.bugs_read, name='bugs-read'),
-    path('bugs/bug/<int:bug_id>/', control.bug_detail, name='bug-detail'),
+    path('bugs/bug/<slug:bug_pk>/', control.bug_detail, name='bug-detail'),
+
+    path('features/', control.features_read, name='features-read'),
+    path('features/feature/<slug:feature_pk>/', control.feature_detail, name='feature-detail'),
+
+    path('bug/create/', control.bug_create, name='bug-create'),
+    path('feature/create/', control.feature_create, name='feature-create'),
     # path('features/', feature_list, name='feature_list'),
 
     # # Параметризованные маршруты URL

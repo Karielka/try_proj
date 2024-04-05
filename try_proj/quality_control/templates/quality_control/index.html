@@ -6,22 +6,16 @@
     <h1>
       {{ message }}
     </h1>
-
-    {% if request.user.is_superuser %}
-      <span class="badge bg-secondary">Пользователь админ</span>
-      <a href="/admin/" class="btn btn-sm btn-primary" target="_blank">Перейти в админку</a>
-    {% else %}
-      <span class="badge bg-warning">Пожалуйста, 
-        <a href="/admin/" target="_blank">авторизирйтесь</a>
-      </span>
-    {% endif %}
-  </div>
+  
 
   <div class="row">
     <div class="col-6">
         {% if bugs %}
         <div class="container">
-            <a class="btn btn-sm btn-outline-warning" href="{% url 'bugs-read' %}">Просмотр всех багов</a>
+            <div class="col-8">
+              <a class="btn btn-dark btn-lg" href="{% url 'bugs-read' %}">Просмотр всех багов</a>
+              <a class="btn btn-dark btn-lg" href="{% url 'bug-create' %}">Cоздание бага</a>
+            </div>
         </div>
         {% else %}
         <div class="container">
@@ -31,8 +25,21 @@
     </div>
 
     <div class="col-6">
+        {% if features %}
+        <div class="container">
+            <div class="col-8">
+                <a class="btn btn-dark btn-lg" href="{% url 'features-read' %}">Просмотр всех фич</a>
+                <a class="btn btn-dark btn-lg" href="{% url 'feature-create' %}">Cоздание фичи</a>
+              </div>
+        </div>
+        {% else %}
+        <div class="container">
+            <p>Фич создано не было! Идите ищите делайте фичи, ведь баги всегда есть!</p>
+        </div>
+        {% endif %}
     </div>
 
+  </div>
   </div>
 
 
