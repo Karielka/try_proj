@@ -20,6 +20,9 @@
         {% else %}
         <div class="container">
             <p>Баг репортов создано не было! Идите ищите баги, они есть везде!</p>
+            <div class="col-8">
+              <a class="btn btn-dark btn-lg" href="{% url 'bug-create' %}">Cоздание бага</a>
+            </div>
         </div>
         {% endif %}
     </div>

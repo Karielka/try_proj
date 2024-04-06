@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from tasks.models import Profile, Task
 
 from django.http import HttpResponse
-from tasks.forms import TaskForm, TaskForm_1
+from tasks.forms import TaskForm, TaskFormForCreate
 
 def index(request):
     profiles = Profile.objects.all()
@@ -17,14 +17,14 @@ def index(request):
 def task_create(request, profile_pk):
     profile = get_object_or_404(Profile, pk=profile_pk)
     if request.method == 'POST':
-        form = TaskForm_1(request.POST)
+        form = TaskFormForCreate(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
             task.profile = profile
             task.save()
             return redirect('index')  # Перенаправляем на главную страницу после создания задачи
     else:
-        form = TaskForm_1()
+        form = TaskFormForCreate()
     context = {
         'form': form,
         'profile_pk': profile_pk,

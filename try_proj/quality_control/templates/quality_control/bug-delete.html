@@ -1,12 +1,19 @@
 {% extends "quality_control/base.html" %}
 
+{% load static %}
+
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'tasks/css/forms.css' %}" type="text/css" media="all">
+
 <div class="container">
   <h3>Вы уверены, что хотите удалить: "{{ bug.title }}"?</h3>
   <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Подтвердить">
-    <a href="{% url 'index' %}">Отмена</a>
+    <!--<input type="submit" value="Подтвердить">-->
+
+    <button type="submit">Подтвердить</button>
+    <a href="{% url 'bugs-read' %}">Отмена</a>
   </form>
 </div>
 {% endblock %}

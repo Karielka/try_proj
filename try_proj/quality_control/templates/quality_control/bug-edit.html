@@ -2,15 +2,17 @@
 {% load static %}
 
 {% block content %}
-<!--<link rel="stylesheet" href="{% static 'tasks/css/forms.css' %}" type="text/css" media="all">-->
+
+<link rel="stylesheet" href="{% static 'tasks/css/forms.css' %}" type="text/css" media="all">
 
 <div class="container">
     <form action="" method="post">
       {% csrf_token %}
-      <p>Редактивароние бага</p>
+      <p>Редактивароние бага: {{bug.title}}</p>
       {{ form.as_p }}
-      <input type="submit" value="Сохранить">
-      <a href="{% url 'index' %}">Отмена</a>
+      <!--<input type="submit" value="Сохранить">-->
+      <button type="submit">Сохранить</button>
+      <button class="btn btn-danger btn-lg text-right" href="{% url 'bugs-read' %}">Отмена</button>
     </form>
 </div>
 {% endblock %}

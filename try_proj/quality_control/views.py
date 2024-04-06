@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from quality_control.models import BugReport, FeatureReport
+from django.views import View
 
 from django.http import HttpResponse
 from quality_control.forms import BugReportFormForCreate, FeatureReportFormForCreate
@@ -16,12 +17,6 @@ def index(request):
         'page': 'main',
     }
     return render(request, 'quality_control/index.html', context)
-
-
-
-
-
-
 
 def bugs_read(request):
     bugs = BugReport.objects.all()
@@ -41,7 +36,6 @@ def bug_detail(request, bug_pk):
     }
     return render(request, 'quality_control/bug-read.html', context)
 
-
 def bug_create(request):
     if request.method == 'POST':
         form = BugReportFormForCreate(request.POST)
@@ -58,26 +52,36 @@ def bug_create(request):
     }
     return render(request, 'quality_control/bug-create.html', context)
 
-def bug_update(request, bug_pk):
-    bug = get_object_or_404(BugReport, pk=bug_pk)
-    form = BugReportFormForEdit(request.POST or None, instance=bug)
-    if form.is_valid():
-        form.save()
-        return redirect('index')
-    return render(request, 'quality_control/bug-edit.html', {'form': form})
+class BugUpdateView(View):
+    def get(self, request, bug_pk):
+        bug = get_object_or_404(BugReport, pk=bug_pk)
+        form = BugReportFormForEdit(instance=bug)
+        return render(request, 'quality_control/bug-edit.html', {'form': form, 'bug': bug})
+
+    def post(self, request, bug_pk):
+        bug = get_object_or_404(BugReport, pk=bug_pk)
+        form = BugReportFormForEdit(request.POST, instance=bug)
+        if form.is_valid():
+            form.save()
+            return redirect('bugs-read')
+        return render(request, 'quality_control/bug-edit.html', {'form': form, 'bug': bug})
+    
+
+
+# def bug_update(request, bug_pk):
+#     bug = get_object_or_404(BugReport, pk=bug_pk)
+#     form = BugReportFormForEdit(request.POST or None, instance=bug)
+#     if form.is_valid():
+#         form.save()
+#         return redirect('index')
+#     return render(request, 'quality_control/bug-edit.html', {'form': form})
 
 def bug_delete(request, bug_pk=None):
     bug = get_object_or_404(BugReport, pk=bug_pk)
     if request.method == 'POST':
         bug.delete()
-        return redirect('index')
+        return redirect('bugs-read')
     return render(request, 'quality_control/bug-delete.html', {'bug': bug})
-
-
-
-
-
-
 
 def features_read(request):
     features = FeatureReport.objects.all()
@@ -118,12 +122,12 @@ def feature_update(request, feature_pk):
     form = FeatureReportFormForEdit(request.POST or None, instance=feature)
     if form.is_valid():
         form.save()
-        return redirect('index')
+        return redirect('features-read')
     return render(request, 'quality_control/feature-edit.html', {'form': form})
 
 def feature_delete(request, feature_pk=None):
     feature = get_object_or_404(FeatureReport, pk=feature_pk)
     if request.method == 'POST':
         feature.delete()
-        return redirect('index')
+        return redirect('features-read')
     return render(request, 'quality_control/feature-delete.html', {'feature': feature})
