@@ -66,7 +66,12 @@ def bug_update(request, bug_pk):
         return redirect('index')
     return render(request, 'quality_control/bug-edit.html', {'form': form})
 
-
+def bug_delete(request, bug_pk=None):
+    bug = get_object_or_404(BugReport, pk=bug_pk)
+    if request.method == 'POST':
+        bug.delete()
+        return redirect('index')
+    return render(request, 'quality_control/bug-delete.html', {'bug': bug})
 
 
 
@@ -116,18 +121,9 @@ def feature_update(request, feature_pk):
         return redirect('index')
     return render(request, 'quality_control/feature-edit.html', {'form': form})
 
-
-# def task_update(request, task_pk):
-#     task = get_object_or_404(Task, pk=task_pk)
-#     form = TaskForm(request.POST or None, instance=task)
-#     if form.is_valid():
-#         form.save()
-#         return redirect('index')
-#     return render(request, 'tasks/task-update.html', {'form': form})
-
-# def task_delete(request, task_pk=None):
-#     task = get_object_or_404(Task, pk=task_pk)
-#     if request.method == 'POST':
-#         task.delete()
-#         return redirect('index')
-#     return render(request, 'tasks/task-delete.html', {'task': task})
+def feature_delete(request, feature_pk=None):
+    feature = get_object_or_404(FeatureReport, pk=feature_pk)
+    if request.method == 'POST':
+        feature.delete()
+        return redirect('index')
+    return render(request, 'quality_control/feature-delete.html', {'feature': feature})

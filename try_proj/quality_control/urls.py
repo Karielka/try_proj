@@ -15,6 +15,9 @@ urlpatterns = [
 
     path('bug/edit/<slug:bug_pk>/', control.bug_update, name='bug-edit'),
     path('feature/edit/<slug:feature_pk>/', control.feature_update, name='feature-edit'),
+
+    path('bug/delete/<slug:bug_pk>/', control.bug_delete, name='bug-delete'),
+    path('feature/delete/<slug:feature_pk>/', control.feature_delete, name='feature-delete'),
     # path('features/', feature_list, name='feature_list'),
 
     # # Параметризованные маршруты URL
