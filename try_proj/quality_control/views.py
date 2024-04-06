@@ -3,6 +3,7 @@ from quality_control.models import BugReport, FeatureReport
 
 from django.http import HttpResponse
 from quality_control.forms import BugReportFormForCreate, FeatureReportFormForCreate
+from quality_control.forms import BugReportFormForEdit, FeatureReportFormForEdit
 
 def index(request):
     bugs = BugReport.objects.all()
@@ -15,6 +16,12 @@ def index(request):
         'page': 'main',
     }
     return render(request, 'quality_control/index.html', context)
+
+
+
+
+
+
 
 def bugs_read(request):
     bugs = BugReport.objects.all()
@@ -51,7 +58,13 @@ def bug_create(request):
     }
     return render(request, 'quality_control/bug-create.html', context)
 
-
+def bug_update(request, bug_pk):
+    bug = get_object_or_404(BugReport, pk=bug_pk)
+    form = BugReportFormForEdit(request.POST or None, instance=bug)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+    return render(request, 'quality_control/bug-edit.html', {'form': form})
 
 
 
@@ -95,35 +108,14 @@ def feature_create(request):
     }
     return render(request, 'quality_control/feature-create.html', context)
 
+def feature_update(request, feature_pk):
+    feature = get_object_or_404(FeatureReport, pk=feature_pk)
+    form = FeatureReportFormForEdit(request.POST or None, instance=feature)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+    return render(request, 'quality_control/feature-edit.html', {'form': form})
 
-# def task_create(request, profile_pk):
-#     profile = get_object_or_404(Profile, pk=profile_pk)
-#     if request.method == 'POST':
-#         form = TaskForm_1(request.POST)
-#         if form.is_valid():
-#             task = form.save(commit=False)
-#             task.profile = profile
-#             task.save()
-#             return redirect('index')  # Перенаправляем на главную страницу после создания задачи
-#     else:
-#         form = TaskForm_1()
-#     context = {
-#         'form': form,
-#         'profile_pk': profile_pk,
-#         'message': "Вы создаёте задание",
-#         'page': 'create',
-#     }
-#     return render(request, 'tasks/task-create.html', context)
-
-# def task_read(request, task_pk):
-#     task = get_object_or_404(Task, pk=task_pk)
-#     context = {
-#         'task': task,
-#         'page': 'read',
-#         'message': "Вы читаете задание",
-#         'page': 'read',
-#     }
-#     return render(request, 'tasks/task-read.html', context)
 
 # def task_update(request, task_pk):
 #     task = get_object_or_404(Task, pk=task_pk)

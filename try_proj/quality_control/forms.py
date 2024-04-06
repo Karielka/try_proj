@@ -10,3 +10,13 @@ class FeatureReportFormForCreate(forms.ModelForm):
     class Meta:
         model = FeatureReport
         fields = ['title','description', 'profile', 'task', 'priority']
+
+class BugReportFormForEdit(forms.ModelForm):
+    class Meta:
+        model = BugReport
+        fields = ['description', 'priority', 'status']
+
+class FeatureReportFormForEdit(forms.ModelForm):
+    class Meta:
+        model = FeatureReport
+        fields = ['description', 'priority', 'status']
